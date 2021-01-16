@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import {axiosWithAuth} from '../Util/axiosWithAuth';
+
 export default function FriendsList(props){
   const [friends, setFriends] = useState([]);
   const [newFriend, setNewFriend] = useState({
@@ -23,11 +24,17 @@ export default function FriendsList(props){
     })
     .catch(err => console.log(err));
   }
-  const addNewFriend = () => {
+  const addNewFriend = (e) => {
+    e.preventDefault();
     axiosWithAuth().post('/friends', newFriend)
     .then(res => {
       console.log(res);
       setFriends(res.data);
+      setNewFriend({
+        name:'',
+        age:'',
+        email:''
+      })
     })
     .catch(err => console.log(err));
   }
@@ -38,7 +45,7 @@ export default function FriendsList(props){
           <input
             type="text"
             name="name"
-            value={newFriend.username}
+            value={newFriend.name}
             onChange={(e) => inputChange(e)}
           />
         <label for="age">Age: </label>
