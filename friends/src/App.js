@@ -12,6 +12,7 @@ function App() {
 
   const logout = () => {
     localStorage.removeItem("token");
+    alert("You've Logged Out!");
   }
   return (
     <Router>
